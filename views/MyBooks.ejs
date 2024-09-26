@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="button-container">
+        <form action="/" method="get">
+            <button type="submit">Back</button>
+        </form>
+    </div>
+    <hr>
+    <table>
+        <tr>
+            <th>No.</th>
+            <th>Code</th>
+            <th>Borrowed At</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        <% data.forEach((el, index)=> {
+            const borrowedDate = new Date(el.borrowedAt);
+            const currentDate = new Date();
+            const dueDate = new Date(borrowedDate);
+            dueDate.setDate(borrowedDate.getDate() + 7);
+            el.status = currentDate > dueDate ? 'Penalized' : 'Safe';
+            });
+            data.forEach((el, index)=> {%>
+
+            <tr>
+                <td>
+                    <%= index + 1 %>
+                </td>
+                <td>
+                    <%= el.Bcode %>
+                </td>
+                <td>
+                    <%= el.borrowedAt %>
+                </td>
+                <td>
+                    <%= el.status %>
+                </td>
+                <td>
+                    <form action="/return/<%=el.Bcode %>" method="post">
+                        <button type="submit">Return</button>
+                    </form>
+                </td>
+                <% })%>
+
+    </table>
+</body>
+
+</html>

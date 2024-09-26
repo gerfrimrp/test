@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const { Member } = require('../models');
 
 module.exports = {
@@ -33,6 +34,15 @@ module.exports = {
         try {
             req.session.destroy();
             res.redirect('/login');
+        } catch (err) {
+            res.send(err);
+        }
+    },
+
+    async showAllMembers(req, res) {
+        try {
+            const members = await Member.findAll();
+            res.render('Members', { data: members });
         } catch (err) {
             res.send(err);
         }

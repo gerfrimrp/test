@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="button-container">
+        <form action="/" method="get">
+            <button type="submit">Back</button>
+        </form>
+    </div>
+    <hr>
+    <table>
+        <tr>
+            <th>No.</th>
+            <th>Code</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Stock</th>
+            <th>Action</th>
+        </tr>
+        <% data.forEach((el, index)=> {%>
+
+            <tr>
+                <td>
+                    <%= index + 1 %>
+                </td>
+                <td>
+                    <%= el.title %>
+                </td>
+                <td>
+                    <%= el.code %>
+                </td>
+                <td>
+                    <%= el.author %>
+                </td>
+                <td>
+                    <%= el.stock %>
+                </td>
+                <td>
+                    <form action="/borrow/<%=el.code%>" method="post">
+                        <button type="submit">Borrow</button>
+                    </form>
+                </td>
+                <% })%>
+
+    </table>
+</body>
+
+</html>
